@@ -1209,6 +1209,44 @@ img {
 }
 
 @media (max-width: 768px) {
+
+     body.menu-open {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+    }
+    
+    .nav-links {
+        z-index: 999;
+        overflow-y: auto;
+        max-height: calc(100vh - 80px);
+    }
+    
+    /* Optional: Add backdrop when menu is open */
+    .nav-links {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: var(--white);
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .nav-links.active {
+        transform: translateX(0);
+    }
+    
+    body.menu-open {
+        overflow: hidden;
+    }
+    
+    .nav-links.active::before {
+        opacity: 1;
+        pointer-events: auto;
+    }
     .section {
         padding: 80px 0;
     }
@@ -1309,4 +1347,94 @@ img {
     .timeline-content::before {
         display: none;
     }
+}
+
+/* Add this to your CSS file */
+.skill-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--secondary-color);
+    color: var(--white);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+}
+
+.skill-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--secondary-color) transparent transparent transparent;
+}
+
+.skill-circle:hover .skill-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-10px);
+}
+
+/* For mobile devices */
+@media (max-width: 768px) {
+    .skill-tooltip {
+        font-size: 0.7rem;
+        padding: 6px 10px;
+    }
+}
+
+.skill-circle {
+    /* Your existing styles */
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.skill-circle i {
+    transition: transform 0.3s ease;
+}
+
+.skill-circle:hover {
+    transform: scale(1.1) translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.skill-circle:hover i {
+    transform: scale(1.1);
+}
+
+/* For the skills ball container */
+#skillsBall {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), #8a85ff);
+    box-shadow: 0 20px 50px rgba(108, 99, 255, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
